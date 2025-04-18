@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | HealthCare Portal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('your-background-image.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-header {
+      width: 100%;
+      background-color: #1ca38c;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .login-container {
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 700px;
+      max-width: 90%;
+      display: flex;
+      justify-content: space-between;
+      padding: 40px;
+      margin: auto 0;
+    }
+
+    .form-area {
+      flex: 1;
+    }
+
+    .form-area h2 {
+      text-align: center;
+      color: #1ca38c;
+      margin-bottom: 30px;
+    }
+
+    .form-area label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-area input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-bottom: 1px solid #1ca38c;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .form-area .error {
+      color: red;
+      font-size: 13px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .form-area input.invalid {
+      border-bottom: 1px solid red;
+    }
+
+    .form-area button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #1ca38c, #1cd2af);
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-area button:hover {
+      background: linear-gradient(135deg, #18b89c, #1de6c1);
+      transform: translateY(-2px);
+    }
+
+    .form-area .signup {
+      margin-top: 15px;
+      color: #1ca38c;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: underline;
+    }
+
+    .illustration {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .illustration img {
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .page-footer {
+      width: 100%;
+      background-color: #1ca38c;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .illustration {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    🏥 HealthCare Portal
+  </header>
+
+  <div class="login-container">
+    <div class="form-area">
+      <h2>Login</h2>
+      <form id="loginForm" action="WelcomePG.html" method="GET">
+        <label for="email">Email</label>
+        <input type="email" id="email" />
+        <div class="error" id="emailError">Email is required.</div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" />
+        <div class="error" id="passwordError">Password is required.</div>
+
+        <button type="submit">Login</button>
+      </form>
+      <a href="SignUp.html"><div class="signup">Don't have an account? Sign up</div></a>
+    </div>
+    <div class="illustration">
+      <img src="Illustration.png" alt="Login Illustration" />
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    &copy; 2025 HealthCare Portal. All rights reserved.
+  </footer>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const emailError = document.getElementById("emailError");
+    const passwordError = document.getElementById("passwordError");
+
+    form.addEventListener("submit", function (e) {
+      let valid = true;
+
+      if (email.value.trim() === "") {
+        email.classList.add("invalid");
+        emailError.style.display = "block";
+        valid = false;
+      } else {
+        email.classList.remove("invalid");
+        emailError.style.display = "none";
+      }
+
+      if (password.value.trim() === "") {
+        password.classList.add("invalid");
+        passwordError.style.display = "block";
+        valid = false;
+      } else {
+        password.classList.remove("invalid");
+        passwordError.style.display = "none";
+      }
+
+      if (!valid) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+</html>

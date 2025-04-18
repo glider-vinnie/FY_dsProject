@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('your-blur-background.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .signup-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      display: flex;
+      width: 850px;
+      max-width: 95%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border: 2px solid #1ca38c;
+      border-radius: 30px;
+      background-color: white;
+      color: #1ca38c;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #1ca38c;
+      color: white;
+    }
+
+    .form-section {
+      flex: 1;
+      padding: 60px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      color: #1ca38c;
+      margin-bottom: 35px;
+      font-size: 2.2rem;
+    }
+
+    .form-section label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .form-section input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 25px;
+      border: none;
+      border-bottom: 2px solid #1ca38c;
+      outline: none;
+      background: transparent;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-section input:focus {
+      border-color: #128a74;
+    }
+
+    .form-section button {
+      padding: 14px;
+      border: none;
+      background: #1ca38c;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .form-section button:hover {
+      background-color: #128a74;
+      transform: translateY(-2px);
+    }
+
+    .image-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #e6f6f3, #f9fdfc);
+    }
+
+    .image-section img {
+      max-width: 280px;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      .signup-container {
+        flex-direction: column;
+        border-radius: 20px;
+      }
+
+      .image-section {
+        display: none;
+      }
+
+      .form-section {
+        padding: 40px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <button class="back-button" onclick="goBack()">← Back</button>
+
+    <div class="form-section">
+      <h2>Create Your Account</h2>
+      <form onsubmit="return validateForm(event)">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm password" />
+
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+
+    <div class="image-section">
+      <img src="Illustration.png" alt="Doctor Illustration" />
+    </div>
+  </div>
+
+  <script>
+    function validateForm(e) {
+      e.preventDefault(); // stop the form from reloading the page
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirm = document.getElementById('confirmPassword').value.trim();
+
+      if (!email || !password || !confirm) {
+        alert('Please fill out all fields.');
+        return false;
+      }
+
+      if (password !== confirm) {
+        alert('Passwords do not match.');
+        return false;
+      }
+
+      alert('✅ Sign Up Successful!');
+      
+      // redirect to main.html after 1 second
+      setTimeout(() => {
+        window.location.href = "main.html";
+      }, 1000);
+
+      return true;
+    }
+
+    function goBack() {
+      window.location.href = "main.html"; // or wherever you want
+    }
+  </script>
+</body>
+</html>

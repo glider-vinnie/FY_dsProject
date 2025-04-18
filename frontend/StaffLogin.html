@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #f8f9f8;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #1ca38c;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #1ca38c;
+      text-decoration: none;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: #c0e2db;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -16px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #1ca38c;
+      background-color: transparent;
+      color: #1ca38c;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1ca38c;
+      color: white;
+    }
+
+    footer {
+      background-color: #1ca38c;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    🏥 HealthCare Appointment Portal
+  </header>
+
+  <main>
+    <div class="container">
+      <a href="WelcomePG.html" class="back-arrow">&#8592;</a><br><br>
+      <form id="appointmentForm" action="AppointmentListStaff.html" method="GET">
+        <label for="userid">Enter User Id :-</label>
+        <input type="text" id="userid" name="userid" />
+        <div class="error" id="userError">User ID is required.</div>
+
+        <label for="password">Enter Password :-</label>
+        <input type="password" id="password" name="password" />
+        <div class="error" id="passError">Password is required.</div><br><br>
+
+        <button type="submit">View Scheduled Appointments</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 HealthCare Portal. All rights reserved.
+  </footer>
+
+  <script>
+    const form = document.getElementById("appointmentForm");
+    const userid = document.getElementById("userid");
+    const password = document.getElementById("password");
+    const userError = document.getElementById("userError");
+    const passError = document.getElementById("passError");
+
+    form.addEventListener("submit", function (e) {
+      let valid = true;
+
+      if (userid.value.trim() === "") {
+        userError.style.display = "block";
+        valid = false;
+      } else {
+        userError.style.display = "none";
+      }
+
+      if (password.value.trim() === "") {
+        passError.style.display = "block";
+        valid = false;
+      } else {
+        passError.style.display = "none";
+      }
+
+      if (!valid) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+</html>

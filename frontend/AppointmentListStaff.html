@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Staff - Appointment Management</title>
+  <style>
+    :root {
+      --primary: #0f766e;
+      --light: #ecfdf5;
+      --highlight: #fef9c3;
+      --danger: #dc2626;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f9fafb;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-header {
+      background: linear-gradient(90deg, #0f766e, #0e7490);
+      color: white;
+      padding: 24px 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 2rem;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hospital-name {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .page-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-top: 10px;
+      opacity: 0.85;
+    }
+
+    main {
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+      color: #334155;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 30px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background-color: var(--light);
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .row.highlight {
+      background-color: var(--highlight);
+    }
+
+    .emergency {
+      color: var(--danger);
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    .back-wrapper {
+      padding: 20px;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .reschedule-btn {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    .cancel-btn {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .priority-btn {
+      background-color: #f59e0b;
+      color: white;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      background-color: #6b7280;
+      color: white;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 600px) {
+      .row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero-header">
+    <div class="hero-content">
+      <div class="left">
+        <div class="logo">🏥</div>
+        <div class="title-block">
+          <div class="hospital-name">SwasthaCare Multispeciality Hospital</div>
+          <div class="tagline">Your Health, Our Priority.</div>
+        </div>
+      </div>
+      <div class="page-title">Staff Appointment Panel</div>
+    </div>
+  </header>
+
+    <!-- Back Button -->
+    <div class="back-wrapper">
+        <a href="WelcomePG.html" class="back-button">← Back to Welcome</a>
+      </div>
+    
+      <!-- Main Content -->
+
+  <main>
+    <input id="search" class="input" type="text" placeholder="Search by ID or Name...">
+
+    <div class="section">
+      <h2>In Check Up</h2>
+      <div id="checkup-list"></div>
+    </div>
+
+    <div class="section">
+      <h2>In Queue</h2>
+      <div id="queue-list"></div>
+    </div>
+  </main>
+
+  <div class="modal" id="popup-modal">
+    <div class="modal-content">
+      <div class="modal-header">Patient Appointment Details</div>
+      <div id="modal-body"></div>
+      <div class="modal-buttons">
+        <button class="reschedule-btn" onclick="alert('Reschedule triggered')">Reschedule</button>
+        <button class="cancel-btn" onclick="alert('Appointment Cancelled')">Cancel</button>
+        <button class="priority-btn" onclick="alert('Priority Increased')">Make Emergency</button>
+      </div>
+      <button class="close-btn" onclick="document.getElementById('popup-modal').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      inCheckUp: [
+        { id: "A1001", name: "Lorem Ipsum", type: "Emergency", location: "In-Check Up", time: "1Hr" },
+        { id: "A1002", name: "Lorem Ipsum", type: "Follow Up", location: "In-Check Up", time: "10 mins" },
+        { id: "A1003", name: "Lorem Ipsum", type: "First Meet", location: "In-Check Up", time: "10 mins" }
+      ],
+      inQueue: [
+        { id: "A1004", name: "Lorem Ipsum", type: "Emergency", order: 1, location: "In Queue", time: "1Hr" },
+        { id: "A1005", name: "Lorem Ipsum", type: "Follow Up", order: 3, location: "In Queue", time: "10 mins" },
+        { id: "A1006", name: "Lorem Ipsum", type: "Follow Up", order: 4, location: "In Queue", time: "10 mins" },
+        { id: "A1007", name: "Lorem Ipsum", type: "Follow Up", order: 5, location: "In Queue", time: "10 mins" },
+        { id: "A1008", name: "Lorem Ipsum", type: "Emergency", order: 2, location: "In Queue", time: "10 mins" }
+      ]
+    };
+
+    const checkupList = document.getElementById("checkup-list");
+    const queueList = document.getElementById("queue-list");
+    const searchInput = document.getElementById("search");
+    const modal = document.getElementById("popup-modal");
+    const modalBody = document.getElementById("modal-body");
+
+    function renderList(list, container, searchTerm) {
+      container.innerHTML = '';
+      list.forEach(entry => {
+        const isMatch = entry.id.toLowerCase().includes(searchTerm) || entry.name.toLowerCase().includes(searchTerm);
+        const row = document.createElement("div");
+        row.className = "row" + (isMatch ? " highlight" : "");
+        row.innerHTML = `
+          <div>${entry.id}</div>
+          <div>${entry.name}</div>
+          <div class="${entry.type === "Emergency" ? "emergency" : ""}">${entry.type}</div>
+          <div>${entry.order !== undefined ? entry.order : entry.location}</div>
+          <div>${entry.time}</div>
+        `;
+        row.onclick = () => openModal(entry);
+        container.appendChild(row);
+      });
+    }
+
+    function updateUI() {
+      const searchTerm = searchInput.value.toLowerCase();
+      renderList(data.inCheckUp, checkupList, searchTerm);
+      renderList(data.inQueue, queueList, searchTerm);
+    }
+
+    function openModal(entry) {
+      modal.style.display = 'flex';
+      modalBody.innerHTML = `
+        <p><strong>ID:</strong> ${entry.id}</p>
+        <p><strong>Name:</strong> ${entry.name}</p>
+        <p><strong>Type:</strong> ${entry.type}</p>
+        <p><strong>Location:</strong> ${entry.location}</p>
+        <p><strong>Time:</strong> ${entry.time}</p>
+        <p><strong>Order:</strong> ${entry.order !== undefined ? entry.order : '-'}</p>
+      `;
+    }
+
+    searchInput.addEventListener("input", updateUI);
+    updateUI();
+  </script>
+</body>
+</html>
