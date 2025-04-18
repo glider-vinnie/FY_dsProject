@@ -1,6 +1,8 @@
 {
-    "redirects": [
-      { "source": "/", "destination": "/main.html", "permanent": true }
-    ]
-  }
-  
+  "projects": [
+    {
+      "src": "frontend",
+      "use": "@vercel/static"
+    }
+  ]
+}
